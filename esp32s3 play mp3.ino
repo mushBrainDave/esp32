@@ -109,21 +109,25 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.printf("Received message on topic %s: %s\n", topic, message.c_str());
 
   // Map each command to its MP3 file:
-  if (message == "ping") {
+  if (message == "flavor") {
     audioFileName = "thats-flavor-town.mp3";
-    client.publish(mqtt_topic, "true");      // existing ACK
+    client.publish(mqtt_topic, "true");
   }
   else if (message == "woo") {
     audioFileName = "woo.mp3";
+	client.publish(mqtt_topic, "true");
   }
   else if (message == "bonk") {
     audioFileName = "bonk.mp3";
+	client.publish(mqtt_topic, "true");
   }
   else if (message == "ugh") {
     audioFileName = "ugh.mp3";
+	client.publish(mqtt_topic, "true");
   }
   else if (message == "scooby") {
     audioFileName = "scooby.mp3";
+	client.publish(mqtt_topic, "true");
   }
   else {
     // unknown command
