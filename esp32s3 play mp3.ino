@@ -108,32 +108,16 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.printf("Received message on topic %s: %s\n", topic, message.c_str());
 
+  String file    = message + ".mp3"; 
+  String path    = "/" + file; 
   // Map each command to its MP3 file:
-  if (message == "flavor") {
-    audioFileName = "thats-flavor-town.mp3";
-    client.publish(mqtt_topic, "true");
-  }
-  else if (message == "woo") {
-    audioFileName = "woo.mp3";
-    client.publish(mqtt_topic, "true");
-  }
-  else if (message == "bonk") {
-    audioFileName = "bonk.mp3";
-    client.publish(mqtt_topic, "true");
-  }
-  else if (message == "ugh") {
-    audioFileName = "ugh.mp3";
-    client.publish(mqtt_topic, "true");
-  }
-  else if (message == "scooby") {
-    audioFileName = "scooby.mp3";
-    client.publish(mqtt_topic, "true");
-  }
-  else {
-    // unknown command
-    Serial.println("Unrecognized command, ignoring.");
+  if (! SD.exists(path)) {
+    Serial.printf("Audio file not found: %s\n", path.c_str());
     return;
   }
+
+  audioFileName = file;
+  client.publish(mqtt_topic, "true");
 
   // trigger playback of the selected file
   playAudio   = true;
